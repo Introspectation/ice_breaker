@@ -2,9 +2,10 @@ import os
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 
-#llm models
-#from langchain_openai import ChatOpenAI
+# llm models
+# from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_ollama import ChatOllama
 
 load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
@@ -22,7 +23,7 @@ James won his first two NBA championships while playing for the Heat in 2012 and
 Off the court, James has earned further wealth and fame from numerous endorsement contracts. He is the first player in NBA history to accumulate $1 billion in earnings as an active player.[13] James has been featured in books, documentaries (including winning three Sports Emmy Awards as an executive producer), and television commercials. He was among Time's 100 most influential people in the world in 2005, 2013, 2017, and 2019 – the most selections for a professional athlete. James has won 20 ESPY Awards, hosted Saturday Night Live, and starred in the sports film Space Jam: A New Legacy (2021). He has been a part-owner of Liverpool F.C. since 2011 and leads the LeBron James Family Foundation, which has opened an elementary school, housing complex, retail plaza, and medical center in Akron, Ohio.[14][15]
 """
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("asdjasd")
 
     summary_template = """
@@ -34,11 +35,12 @@ if __name__ == '__main__':
         input_variables="information", template=summary_template
     )
 
-    llm = ChatGoogleGenerativeAI(temperature=0, model="gemini-1.5-pro")
-    #llm = ChatOpenAI(temperature=0, model="gpt-4o-mini")
+    #llm = ChatGoogleGenerativeAI(temperature=0, model="gemini-1.5-pro")
+    llm = ChatOllama(model="llama3")
+    # llm = ChatOpenAI(temperature=0, model="gpt-4o-mini")
 
     chain = summary_prompt_template | llm
 
-    res = chain.invoke(input={"information":information})
+    res = chain.invoke(input={"information": information})
 
     print(res)
